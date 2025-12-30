@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(sp.constitution)",
+      "Bash(git config:*)",
+      "Bash(git rev-parse:*)",
+      "Skill(sp.specify)",
+      "Bash(powershell.exe -File \".specify/scripts/powershell/setup-plan.ps1\" -Json)",
+      "Bash(powershell.exe -File \".specify/scripts/powershell/check-prerequisites.ps1\" -Json)",
+      "Bash(powershell.exe -File \".specify/scripts/powershell/check-prerequisites.ps1\" -Json -RequireTasks -IncludeTasks)"
+    ]
+  }
+}

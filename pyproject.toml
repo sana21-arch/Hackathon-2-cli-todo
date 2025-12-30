@@ -1,0 +1,31 @@
+[project]
+name = "cli-todo"
+version = "1.0.0"
+description = "A clean, professional CLI-based todo application (Phase 1: In-Memory)"
+requires-python = ">=3.13"
+authors = [
+    {name = "Todo Evolution Team"}
+]
+readme = "README.md"
+keywords = ["cli", "todo", "task-management", "spec-driven-development"]
+
+[project.scripts]
+todo = "cli.main:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N"]
+ignore = []
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
