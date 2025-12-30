@@ -67,9 +67,16 @@ def complete_command(task_id: int) -> int:
     Returns:
         Exit code: 0 for success, 1 for error
     """
-    # Stub - to be implemented in Phase 4
-    print("complete command - not yet implemented", file=sys.stderr)
-    return 1
+    try:
+        task = task_service.toggle_complete(task_id, completed=True)
+        print(f'Marked task #{task.id} as complete: "{task.description}"')
+        return 0
+    except TaskNotFoundError as e:
+        print(f"Error: {e}. Use 'todo list' to see valid task IDs.", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        return 1
 
 
 def incomplete_command(task_id: int) -> int:
@@ -81,9 +88,16 @@ def incomplete_command(task_id: int) -> int:
     Returns:
         Exit code: 0 for success, 1 for error
     """
-    # Stub - to be implemented in Phase 4
-    print("incomplete command - not yet implemented", file=sys.stderr)
-    return 1
+    try:
+        task = task_service.toggle_complete(task_id, completed=False)
+        print(f'Marked task #{task.id} as incomplete: "{task.description}"')
+        return 0
+    except TaskNotFoundError as e:
+        print(f"Error: {e}. Use 'todo list' to see valid task IDs.", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        return 1
 
 
 def delete_command(task_id: int) -> int:
@@ -95,9 +109,16 @@ def delete_command(task_id: int) -> int:
     Returns:
         Exit code: 0 for success, 1 for error
     """
-    # Stub - to be implemented in Phase 5
-    print("delete command - not yet implemented", file=sys.stderr)
-    return 1
+    try:
+        task = task_service.delete_task(task_id)
+        print(f'Deleted task #{task.id}: "{task.description}"')
+        return 0
+    except TaskNotFoundError as e:
+        print(f"Error: {e}. Use 'todo list' to see valid task IDs.", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        return 1
 
 
 def update_command(task_id: int, description: str) -> int:
@@ -110,9 +131,19 @@ def update_command(task_id: int, description: str) -> int:
     Returns:
         Exit code: 0 for success, 1 for error
     """
-    # Stub - to be implemented in Phase 6
-    print("update command - not yet implemented", file=sys.stderr)
-    return 1
+    try:
+        task = task_service.update_task(task_id, description)
+        print(f'Updated task #{task.id}: "{task.description}"')
+        return 0
+    except TaskNotFoundError as e:
+        print(f"Error: {e}. Use 'todo list' to see valid task IDs.", file=sys.stderr)
+        return 1
+    except ValidationError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        return 1
 
 
 def search_command(keyword: str) -> int:
@@ -124,6 +155,27 @@ def search_command(keyword: str) -> int:
     Returns:
         Exit code: 0 for success, 1 for error
     """
-    # Stub - to be implemented in Phase 7
-    print("search command - not yet implemented", file=sys.stderr)
-    return 1
+    try:
+        tasks = task_service.search_tasks(keyword)
+
+        if not tasks:
+            print(f'No tasks found matching "{keyword}"')
+            return 0
+
+        # Print header
+        print(f'Tasks matching "{keyword}":')
+        print("ID | Status | Description")
+        print("---|--------|------------")
+
+        # Print matching tasks
+        for task in tasks:
+            status = "[✓]" if task.completed else "[ ]"
+            print(f"{task.id:<2} | {status:^6} | {task.description}")
+
+        return 0
+    except ValidationError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        return 1
