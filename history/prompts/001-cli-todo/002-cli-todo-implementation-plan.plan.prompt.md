@@ -7,7 +7,7 @@ surface: agent
 model: claude-sonnet-4-5-20250929
 feature: 001-cli-todo
 branch: 001-cli-todo
-user: Maham
+user: Sana Mushtaque
 command: /sp.plan
 labels: ["plan", "architecture", "design", "cli", "todo"]
 links:

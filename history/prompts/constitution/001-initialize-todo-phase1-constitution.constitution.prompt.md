@@ -7,7 +7,7 @@ surface: agent
 model: claude-sonnet-4-5-20250929
 feature: none
 branch: master
-user: Sana Mushtaq
+user: Sana Mushtaque
 command: /sp.constitution
 labels: ["constitution", "initialization", "phase1", "principles"]
 links:
